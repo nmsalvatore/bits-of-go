@@ -8,15 +8,12 @@ import (
 
 const port = "8080"
 
-func Home(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("home.html")
-	if err != nil {
-		log.Fatalf("parsing template: %v", err)
-	}
+var tmpl = template.Must(template.ParseFiles("home.html"))
 
+func Home(w http.ResponseWriter, r *http.Request) {
 	data := []string{"apples", "oranges", "bananas"}
 
-	err = tmpl.Execute(w, data)
+	err := tmpl.Execute(w, data)
 	if err != nil {
 		log.Fatalf("rendering template: %v", err)
 	}

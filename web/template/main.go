@@ -6,13 +6,13 @@ import (
 	"net/http"
 )
 
-func Home(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("home.html")
-	if err != nil {
-		log.Fatalf("parsing template: %v", err)
-	}
+var tmpl = template.Must(template.ParseFiles("home.html"))
 
-	tmpl.Execute(w, nil)
+func Home(w http.ResponseWriter, r *http.Request) {
+	err := tmpl.Execute(w, nil)
+	if err != nil {
+		log.Fatalf("rendering template: %v", err)
+	}
 }
 
 func main() {
